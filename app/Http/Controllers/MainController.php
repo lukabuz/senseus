@@ -84,7 +84,7 @@ class MainController extends Controller
 
         $signature->save();
 
-        Mail::to($request->input('email'))->send(new VerificationMail($token));
+        Mail::to($request->input('email'))->send(new VerificationMail($signature->verificationToken));
 
         return response()->json([
             'status' => 'success'
