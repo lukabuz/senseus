@@ -78,7 +78,7 @@ class MainController extends Controller
 
         $signature->firstName = $request->input('firstName');
         $signature->lastName = $request->input('lastName');
-        $signature->email = $request->input('email');
+        $signature->email = '*********';
         $signature->verificationMethod = 'email';
 
         $signature->verificationToken = str_random(25);
@@ -109,6 +109,33 @@ class MainController extends Controller
     }
 
     public function facebookCallback(Request $request){
-        return Socialite::driver('facebook')->stateless()->user();
+        $user = Socialite::driver('facebook')->stateless()->user();
+
+        $firstName = $user->user['first_name'];
+        $lastName = $user->user['last_name'];
+        $email = $user->user['email'];
+
+        if(Signature::where('email', $email)->count() > 0) { 
+            return response()->json([
+                'status' => 'error',
+                'error' => 'ამ მეილით ხელმოწერა უკვე დაფიქსირებულია. An user has already signed this petition with the provided email.'
+            ]);
+        }
+
+        $signature = new Signature;
+
+        $signature->showInfo = true;
+        $signature->firstName = $firstName;
+        $signature->lastName = $lastName;
+        $signature->email = '*********';
+        $signature->verificationMethod = 'email';
+
+        $signature->verificationToken = str_random(25);
+
+        $signature->save();
+
+        return response()->json([
+            'status' => 'success'
+        ]);
     }
 }
