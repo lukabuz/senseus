@@ -105,10 +105,10 @@ class MainController extends Controller
     }
 
     public function facebookRedirect(){
-        return Socialite::driver('facebook')->redirect();
+        return Socialite::driver('facebook')->stateless()->redirect();
     }
 
     public function facebookCallback(Request $request){
-        return Socialite::driver('github')->user();
+        return Socialite::driver('github')->stateless()->user();
     }
 }
