@@ -130,7 +130,7 @@ class MainController extends Controller
         $signature->email = '*********';
         $signature->verificationMethod = 'email';
 
-        $signature->verificationToken = str_random(25);
+        $signature->verificationToken = null;
 
         $signature->save();
 
