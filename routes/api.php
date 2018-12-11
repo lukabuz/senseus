@@ -16,3 +16,5 @@ use Illuminate\Http\Request;
 Route::get('/status', 'MainController@getStatus');
 
 Route::post('/sign/email', 'MainController@signWithEmail');
+
+Route::get('/verify', 'MainController@verify');

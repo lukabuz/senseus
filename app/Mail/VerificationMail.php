@@ -11,7 +11,6 @@ class VerificationMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $recipient;
     public $url;
 
     /**
@@ -19,11 +18,10 @@ class VerificationMail extends Mailable
      *
      * @return void
      */
-    public function __construct($recipient, $token)
+    public function __construct($token)
     {
         //
-        $this->recipient = $recipient;
-        $this->url = url('/verify/?token=' . $token);
+        $this->url = url('/verify/?verificationToken=' . $token);
     }
 
     /**
@@ -34,6 +32,7 @@ class VerificationMail extends Mailable
     public function build()
     {
         return $this->from('verification@senseus.ge')
+                    ->subject('Senseus Email Verification')
                     ->view('mail.verify');
     }
 }
