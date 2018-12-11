@@ -11,6 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/facebook/redirect', 'MainController@facebookRedirect');
+
+Route::get('/facebook/callback', 'MainController@facebookCallback');
