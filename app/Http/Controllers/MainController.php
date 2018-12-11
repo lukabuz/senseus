@@ -125,7 +125,7 @@ class MainController extends Controller
 
         $signature->showInfo = true;
         $signature->firstName = $name;
-        $signature->email = '*********';
+        $signature->email = $email;
         $signature->verificationMethod = 'email';
 
         $signature->verificationToken = null;
