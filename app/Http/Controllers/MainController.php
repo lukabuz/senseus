@@ -13,25 +13,14 @@ class MainController extends Controller
 {
     //
     public $georgianMessages = [
-        'firstName.required' => 'გთხოვთ შეიყვანოთ სახელი.',
-        'firstName.min' => 'სახელი უნდა იყოს მინიმუმ 1 ასო.',
-        'firstName.max' => 'სახელი უნდა იყოს მაქსიმუმ 50 ასო.',
-        'lastName.required' => 'გთხოვთ შეიყვანოთ გვარი.',
-        'lastName.min' => 'გვარი უნდა იყოს მინიმუმ 1 ასო.',
-        'lastName.max' => 'გვარი უნდა იყოს მაქსიმუმ 50 ასო.',
-        'email.required' => 'გთხოვთ შეიყვანოთ მეილი.',
-        'email.email' => 'მეილის ფორმატი არასწორია.'
-    ];
-
-    public $englishMessages = [
-        'firstName.required' => 'Please enter your name.',
-        'firstName.min' => 'Name must be at least 1 character.',
-        'firstName.max' => 'Name must be a maximum of 50 characters.',
-        'lastName.required' => 'Please enter your last name.',
-        'lastName.min' => 'Last name must be at least 1 character.',
-        'lastName.max' => 'Last name must be a maximum of 50 characters.',
-        'email.required' => 'Please enter your email.',
-        'email.email' => 'Please enter a valid email.'
+        'firstName.required' => 1,
+        'firstName.min' => 2,
+        'firstName.max' => 3,
+        'lastName.required' => 4,
+        'lastName.min' => 5,
+        'lastName.max' => 6,
+        'email.required' => 7,
+        'email.email' => 8
     ];
 
     public function getStatus(){
@@ -45,26 +34,20 @@ class MainController extends Controller
     }
 
     public function signWithEmail(Request $request){
-        if($request->input('language') == 'en'){
-            $messages = $this->englishMessages;
-            $mailErrorMessage = 'An user has already signed this petition with the provided email.';
-        } else {
-            $messages = $this->georgianMessages;
-            $mailErrorMessage = 'ამ მეილით ხელმოწერა უკვე დაფიქსირებულია.';
-        }
-
         $validatedData = $request->validate([
             'firstName' => 'required|min:1|max:50',
             'lastName' => 'required|min:1|max:50',
             'email' => 'required|email'
         ], 
-        $messages
+        $this->georgianMessages
         );
 
         if(Signature::where('email', $request->input('email'))->count() > 0) { 
             return response()->json([
                 'status' => 'error',
-                'error' => $mailErrorMessage
+                'errors' => [
+                    'email' => [9]
+                ]
             ]);
         }
 
@@ -117,7 +100,7 @@ class MainController extends Controller
         if(Signature::where('email', $email)->count() > 0) { 
             return response()->json([
                 'status' => 'error',
-                'error' => 'ამ მეილით ხელმოწერა უკვე დაფიქსირებულია. An user has already signed this petition with the provided email.'
+                'error' => [9]
             ]);
         }
 
