@@ -105,15 +105,14 @@ class MainController extends Controller
     }
 
     public function facebookRedirect(){
-        return Socialite::driver('facebook')->stateless()->redirect();
+        return Socialite::driver('facebook')->scopes(['public_profile','email'])->stateless()->redirect();
     }
 
     public function facebookCallback(Request $request){
         $user = Socialite::driver('facebook')->stateless()->user();
 
-        $firstName = $user->user['first_name'];
-        $lastName = $user->user['last_name'];
-        $email = $user->user['email'];
+        $name = $user->getName();
+        $email = $user->getEmail();
 
         if(Signature::where('email', $email)->count() > 0) { 
             return response()->json([
@@ -125,8 +124,7 @@ class MainController extends Controller
         $signature = new Signature;
 
         $signature->showInfo = true;
-        $signature->firstName = $firstName;
-        $signature->lastName = $lastName;
+        $signature->firstName = $name;
         $signature->email = '*********';
         $signature->verificationMethod = 'email';
 
