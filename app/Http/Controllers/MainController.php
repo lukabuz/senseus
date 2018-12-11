@@ -91,8 +91,8 @@ class MainController extends Controller
         ]);
     }
 
-    public function verify(Request $request){
-        $signature = Signature::where('verificationToken', $request->input('verificationToken', 'None'))->firstOrFail();
+    public function verify($verificationToken){
+        $signature = Signature::where('verificationToken', $verificationToken)->firstOrFail();
         
         $signature->verificationToken = null;
 

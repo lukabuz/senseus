@@ -17,4 +17,4 @@ Route::get('/status', 'MainController@getStatus');
 
 Route::post('/sign/email', 'MainController@signWithEmail');
 
-Route::get('/verify', 'MainController@verify');
+Route::get('/verify/{verificationToken}', 'MainController@verify');

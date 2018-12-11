@@ -21,7 +21,7 @@ class VerificationMail extends Mailable
     public function __construct($token)
     {
         //
-        $this->url = url('/verify/?verificationToken=' . $token);
+        $this->url = url('/api/verify/' . $token);
     }
 
     /**
