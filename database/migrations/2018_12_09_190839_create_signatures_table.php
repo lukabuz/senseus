@@ -21,6 +21,8 @@ class CreateSignaturesTable extends Migration
             $table->string('email')->nullable();
             $table->string('verificationMethod')->nullable();
 
+            $table->string('verificationToken')->nullable();
+
             $table->boolean('showInfo');
 
             $table->timestamps();
