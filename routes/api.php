@@ -18,3 +18,7 @@ Route::get('/status', 'MainController@getStatus');
 Route::post('/sign/email', 'MainController@signWithEmail');
 
 Route::get('/verify/{verificationToken}', 'MainController@verify');
+
+Route::get('/facebook/redirect', 'MainController@facebookRedirect');
+
+Route::get('/facebook/callback', 'MainController@facebookCallback');

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 use App\Signature;
 use App\Mail\VerificationMail;
+use Socialite;
 
 class MainController extends Controller
 {
@@ -101,5 +102,13 @@ class MainController extends Controller
         return response()->json([
             'status' => 'success'
         ]);
+    }
+
+    public function facebookRedirect(){
+        return Socialite::driver('facebook')->redirect();
+    }
+
+    public function facebookCallback(Request $request){
+        return Socialite::driver('github')->user();
     }
 }
