@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 class Signature extends Model
 {
     //
-    protected $hidden = ['email'];
+    protected $hidden = ['email', 'verificationToken'];
 }
