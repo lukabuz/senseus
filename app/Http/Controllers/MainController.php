@@ -46,7 +46,7 @@ class MainController extends Controller
             return response()->json([
                 'status' => 'error',
                 'errors' => [
-                    'email' => [9]
+                    'email' => 9
                 ]
             ]);
         }
@@ -61,7 +61,7 @@ class MainController extends Controller
 
         $signature->firstName = $request->input('firstName');
         $signature->lastName = $request->input('lastName');
-        $signature->email = '*********';
+        $signature->email = $request->input('email');
         $signature->verificationMethod = 'email';
 
         $signature->verificationToken = str_random(25);
@@ -82,9 +82,7 @@ class MainController extends Controller
 
         $signature->save();
 
-        return response()->json([
-            'status' => 'success'
-        ]);
+        return redirect()->away('https://senseus.ge/?emailVerified=true');
     }
 
     public function facebookRedirect(){
@@ -98,10 +96,7 @@ class MainController extends Controller
         $email = $user->getEmail();
 
         if(Signature::where('email', $email)->count() > 0) { 
-            return response()->json([
-                'status' => 'error',
-                'error' => [9]
-            ]);
+            return redirect()->away('https://senseus.ge/?errorCode=9');
         }
 
         $signature = new Signature;
@@ -115,8 +110,6 @@ class MainController extends Controller
 
         $signature->save();
 
-        return response()->json([
-            'status' => 'success'
-        ]);
+        return redirect()->away('https://senseus.ge/?facebookVerified=true');
     }
 }
