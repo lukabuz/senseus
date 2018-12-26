@@ -28,7 +28,7 @@ class MainController extends Controller
             'status' => 'success',
             'data' => [
                 'signatureCount' => Signature::where('verificationToken', null)->count(),
-                'signatures' => Signature::where('verificationToken', null)->where('showInfo', true)
+                'signatures' => Signature::where('verificationToken', null)->where('showInfo', true)->get()
             ]
         ]);
     }
