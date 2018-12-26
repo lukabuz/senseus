@@ -104,7 +104,7 @@ class MainController extends Controller
         $signature->showInfo = true;
         $signature->firstName = $name;
         $signature->email = $email;
-        $signature->verificationMethod = 'email';
+        $signature->verificationMethod = 'facebook';
 
         $signature->verificationToken = null;
 
