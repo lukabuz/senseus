@@ -48,7 +48,7 @@ class MainController extends Controller
                 'errors' => [
                     'email' => 9
                 ]
-            ]);
+            ], 422);
         }
 
         $signature = new Signature;
