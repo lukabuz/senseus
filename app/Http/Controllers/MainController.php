@@ -46,7 +46,7 @@ class MainController extends Controller
             return response()->json([
                 'status' => 'error',
                 'errors' => [
-                    'email' => 9
+                    'email' => [9]
                 ]
             ], 422);
         }
