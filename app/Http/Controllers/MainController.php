@@ -82,7 +82,7 @@ class MainController extends Controller
 
         $signature->save();
 
-        return redirect()->away('https://senseus.ge/?emailVerified=true');
+        return redirect()->away('https://senseus.ge/?verified=true');
     }
 
     public function facebookRedirect(){
@@ -110,6 +110,6 @@ class MainController extends Controller
 
         $signature->save();
 
-        return redirect()->away('https://senseus.ge/?facebookVerified=true');
+        return redirect()->away('https://senseus.ge/?verified=true');
     }
 }
