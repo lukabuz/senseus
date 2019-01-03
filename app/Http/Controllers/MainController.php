@@ -53,11 +53,7 @@ class MainController extends Controller
 
         $signature = new Signature;
 
-        if($request->input('showInfo') == 'true'){
-            $signature->showInfo = true;
-        } else {
-            $signature->showInfo = false;
-        }
+        $signature->showInfo = true;
 
         $signature->firstName = $request->input('firstName');
         $signature->lastName = $request->input('lastName');
