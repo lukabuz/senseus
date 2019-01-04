@@ -66,7 +66,8 @@ class MainController extends Controller
 
         Mail::to($request->input('email'))->send(new VerificationMail($signature->verificationToken));
 
-        Log::info($signature->firstName . ' ' . $signature->lastName . ' has begun the petition signing process. Email sent, waiting for verification.');
+        $count = Signature::where('verificationToken', null)->count();
+        Log::info('Email verification process started.',  ['Name' => $signature->firstName . ' ' . $signature->lastName, 'Signature count' => $count]);
 
         return response()->json([
             'status' => 'success'
@@ -80,7 +81,8 @@ class MainController extends Controller
 
         $signature->save();
 
-        Log::info($signature->firstName . ' ' . $signature->lastName . ' has verified his email and signed the petition.');
+        $count = Signature::where('verificationToken', null)->count();
+        Log::info('Email verified.', ['Name' => $signature->firstName . $signature->lastName, 'Signature count' => $count]);
 
         return redirect()->away('https://senseus.ge/?verified=true');
     }
@@ -110,7 +112,8 @@ class MainController extends Controller
 
         $signature->save();
 
-        Log::info($signature->firstName . ' has signed the petition using their facebook account.');
+        $count = Signature::where('verificationToken', null)->count();
+        Log::info('Facebook signature recieved.', ['Name' => $signature->firstName, 'Signature count' => $count]);
 
         return redirect()->away('https://senseus.ge/?verified=true');
     }
