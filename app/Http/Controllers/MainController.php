@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Mail;
-
+use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use App\Signature;
 use App\Mail\VerificationMail;
@@ -66,6 +66,8 @@ class MainController extends Controller
 
         Mail::to($request->input('email'))->send(new VerificationMail($signature->verificationToken));
 
+        Log::info($signature->firstName . ' ' . $signature->lastName . ' has begun the petition signing process. Email sent, waiting for verification.');
+
         return response()->json([
             'status' => 'success'
         ]);
@@ -77,6 +79,8 @@ class MainController extends Controller
         $signature->verificationToken = null;
 
         $signature->save();
+
+        Log::info($signature->firstName . ' ' . $signature->lastName . ' has verified his email and signed the petition.');
 
         return redirect()->away('https://senseus.ge/?verified=true');
     }
@@ -105,6 +109,8 @@ class MainController extends Controller
         $signature->verificationToken = null;
 
         $signature->save();
+
+        Log::info($signature->firstName . ' has signed the petition using their facebook account.');
 
         return redirect()->away('https://senseus.ge/?verified=true');
     }
