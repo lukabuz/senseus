@@ -82,7 +82,7 @@ class MainController extends Controller
         $signature->save();
 
         $count = Signature::where('verificationToken', null)->count();
-        Log::info('Email verified.', ['Name' => $signature->firstName . $signature->lastName, 'Signature count' => $count]);
+        Log::info('Email verified.', ['Name' => $signature->firstName . ' ' . $signature->lastName, 'Signature count' => $count]);
 
         return redirect()->away('https://senseus.ge/?verified=true');
     }
